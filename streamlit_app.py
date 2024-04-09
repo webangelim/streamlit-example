@@ -9,6 +9,8 @@ from langchain.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.schema.output_parser import StrOutputParser
+import os
+openai_api_key = os.getenv("OPENAI_API_KEY", st.secrets["ai"])
 
 loader = TextLoader("ppc.txt", autodetect_encoding = True)
 documents = loader.load()
@@ -46,7 +48,7 @@ def generate_response(input_text):
     
     st.info(rag_chain.invoke(input_text))
 
-openai_api_key = st.sidebar.text_input('OpenAI API Key', type='password')
+# openai_api_key = st.sidebar.text_input('OpenAI API Key', type='password')
 st.title(':rainbow[InterrogaPPC-Inator]')
 with st.form('my_form'):
     text = st.text_area('Digite sua pergunta:', 'Como funcionam as horas de extensão?')
