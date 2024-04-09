@@ -37,15 +37,14 @@ Resposta:
 """
 prompt = ChatPromptTemplate.from_template(template)
 
-
+llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0, openai_api_key=openai_api_key)
+rag_chain = (
+{"context": retriever,  "question": RunnablePassthrough()}
+  | prompt
+  | llm
+  | StrOutputParser()
+)
 def generate_response(input_text):
-  llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0, openai_api_key=openai_api_key)
-  rag_chain = (
-  {"context": retriever,  "question": RunnablePassthrough()}
-    | prompt
-    | llm
-    | StrOutputParser()
-  )
   st.info(rag_chain.invoke(input_text))
 
 # openai_api_key = st.sidebar.text_input('OpenAI API Key', type='password')
