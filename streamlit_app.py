@@ -56,9 +56,16 @@ def setup_rag_chain():
 def generate_response(input_text, rag_chain):
     return rag_chain.invoke(input_text)
 
-st.sidebar.image("./platypus.ico", width=30)
-st.title(":rainbow[InterrogaPPC-Inator]")
+# st.title(":rainbow[InterrogaPPC-Inator]")
+html_code = f"""
+    <div style="display: flex; align-items: center;">
+        <h1 style="flex: 1;">:rainbow: InterrogaPPC-Inator</h1>
+        <img src="platypus.ico" width="100" height="100" style="flex-shrink: 0; margin-left: 20px;">
+    </div>
+"""
 
+# Exibir o título e a imagem lado a lado
+st.write(html_code, unsafe_allow_html=True)
 with st.form("my_form"):
     text = st.text_area("Digite sua pergunta:", "Como funcionam as horas de extensão?")
     submitted = st.form_submit_button("Enviar")
