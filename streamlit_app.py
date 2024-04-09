@@ -18,7 +18,7 @@ from langchain_openai import ChatOpenAI
 
 # ----- Interface ----- #
 # openai_api_key = st.sidebar.text_input('OpenAI API Key', type='password')
-openai_api_key = st.secrets.openai_api_key
+openai_api_key = "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"
 
 st.title(':rainbow[InterrogaPPC-Inator]')
 
