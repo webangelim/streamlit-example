@@ -10,14 +10,15 @@ from langchain_openai import ChatOpenAI
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.schema.output_parser import StrOutputParser
 
-def generate_response(input_text):
-    loader = TextLoader("ppc.txt", autodetect_encoding = True)
+loader = TextLoader("ppc.txt", autodetect_encoding = True)
     documents = loader.load()
     text_splitter = CharacterTextSplitter("\n",chunk_size=500)
     chunks = text_splitter.split_documents(documents)
     client = weaviate.Client(
       embedded_options = EmbeddedOptions()
     )
+
+def generate_response(input_text):
     vectorstore = Weaviate.from_documents(
         client = client,
         documents = chunks,
