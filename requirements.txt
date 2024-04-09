@@ -1,3 +1,7 @@
-altair
-pandas
 streamlit
+openai
+langchain
+PyPDF2
+requests
+weaviate-client
+langchain-openai
