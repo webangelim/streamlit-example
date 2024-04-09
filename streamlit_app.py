@@ -17,7 +17,7 @@ chunks = text_splitter.split_documents(documents)
 client = weaviate.Client(
   embedded_options = EmbeddedOptions()
 )
-
+@st.cache(allow_output_mutation=True)
 def generate_response(input_text):
     vectorstore = Weaviate.from_documents(
         client = client,
