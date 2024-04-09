@@ -68,7 +68,7 @@ with col1:
 
 # Adicionar a imagem do ornitorrinco na segunda coluna
 with col2:
-    st.image("platypus.png")
+    st.image("platypus.png", width = 20)
 
 with st.form("my_form"):
     text = st.text_area("Digite sua pergunta:", "Como funcionam as horas de extensão?")
