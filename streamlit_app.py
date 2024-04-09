@@ -41,10 +41,10 @@ prompt = ChatPromptTemplate.from_template(template)
 def generate_response(input_text):
   llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0, openai_api_key=openai_api_key)
   rag_chain = (
-      {"context": retriever,  "question": RunnablePassthrough()}
-      | prompt
-      | llm
-      | StrOutputParser()
+  {"context": retriever,  "question": RunnablePassthrough()}
+    | prompt
+    | llm
+    | StrOutputParser()
   )
   st.info(rag_chain.invoke(input_text))
 
