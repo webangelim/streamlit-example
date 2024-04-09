@@ -58,6 +58,8 @@ def generate_response(input_text, rag_chain):
 
 
 st.title(":rainbow[InterrogaPPC-Inator]")
+st.image("./platypus.ico", width=30)
+
 with st.form("my_form"):
     text = st.text_area("Digite sua pergunta:", "Como funcionam as horas de extensão?")
     submitted = st.form_submit_button("Enviar")
