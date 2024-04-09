@@ -60,7 +60,7 @@ def generate_response(input_text, rag_chain):
 # st.title(":orange[InterrogaPPC-Inator]")
 
 # Dividir a tela em duas colunas
-col1, col2 = st.columns([1, 1])
+col1, col2 = st.columns([2, 1])
 
 # Adicionar o título na primeira coluna
 with col1:
@@ -68,7 +68,7 @@ with col1:
 
 # Adicionar a imagem do ornitorrinco na segunda coluna
 with col2:
-    st.image("platypus.png", width = 20)
+    st.image("platypus.png", width = 100)
 
 with st.form("my_form"):
     text = st.text_area("Digite sua pergunta:", "Como funcionam as horas de extensão?")
