@@ -46,7 +46,7 @@ def generate_response(input_text):
       | llm
       | StrOutputParser()
   )
-    st.info(rag_chain.invoke(input_text))
+  st.info(rag_chain.invoke(input_text))
 
 # openai_api_key = st.sidebar.text_input('OpenAI API Key', type='password')
 st.title(':rainbow[InterrogaPPC-Inator]')
