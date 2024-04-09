@@ -19,33 +19,32 @@ chunks = text_splitter.split_documents(documents)
 client = weaviate.Client(
   embedded_options = EmbeddedOptions()
 )
+vectorstore = Weaviate.from_documents(
+    client = client,
+    documents = chunks,
+    embedding = OpenAIEmbeddings(model="text-embedding-3-small", openai_api_key=openai_api_key),  #text-embedding-3-small usado para criar os embeddings
+    by_text = False
+)
+retriever = vectorstore.as_retriever()
+template = """Você é um assistente que irá responder perguntas.
+Use as seguintes peças de texto para responder a pergunta.
+Se não souber a resposta, apenas responda que não sabe a resposta.
+Explique de forma concisa porém fornecendo um número considerável de detalhes.
+Responda como se fosse um professor explicando para um aluno.
+Pergunta: {question}
+Contexto: {context}
+Resposta:
+"""
+prompt = ChatPromptTemplate.from_template(template)
+llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0, openai_api_key=openai_api_key)
+rag_chain = (
+    {"context": retriever,  "question": RunnablePassthrough()}
+    | prompt
+    | llm
+    | StrOutputParser()
+)
 
 def generate_response(input_text):
-    vectorstore = Weaviate.from_documents(
-        client = client,
-        documents = chunks,
-        embedding = OpenAIEmbeddings(model="text-embedding-3-small", openai_api_key=openai_api_key),  #text-embedding-3-small usado para criar os embeddings
-        by_text = False
-    )
-    retriever = vectorstore.as_retriever()
-    template = """Você é um assistente que irá responder perguntas.
-    Use as seguintes peças de texto para responder a pergunta.
-    Se não souber a resposta, apenas responda que não sabe a resposta.
-    Explique de forma concisa porém fornecendo um número considerável de detalhes.
-    Responda como se fosse um professor explicando para um aluno.
-    Pergunta: {question}
-    Contexto: {context}
-    Resposta:
-    """
-    prompt = ChatPromptTemplate.from_template(template)
-    llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0, openai_api_key=openai_api_key)
-    rag_chain = (
-        {"context": retriever,  "question": RunnablePassthrough()}
-        | prompt
-        | llm
-        | StrOutputParser()
-    )
-    
     st.info(rag_chain.invoke(input_text))
 
 # openai_api_key = st.sidebar.text_input('OpenAI API Key', type='password')
