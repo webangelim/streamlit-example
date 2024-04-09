@@ -56,21 +56,7 @@ def setup_rag_chain():
 def generate_response(input_text, rag_chain):
     return rag_chain.invoke(input_text)
 
-# st.title(":orange[InterrogaPPC-Inator]")
-
-import streamlit as st
-
-# Criar o código HTML para exibir o título e a imagem lado a lado
-html_code = f"""
-    <div style="display: flex; align-items: center;">
-        <h1 style="flex: 1; white-space: nowrap;">:rainbow: InterrogaPPC-Inator</h1>
-        <img src="data:image/ico;base64, {base64.b64encode(open("platypus.ico", "rb").read()).decode()}" width="100" height="100" style="flex-shrink: 0; margin-left: 20px;">
-    </div>
-"""
-
-# Exibir o título e a imagem lado a lado
-st.write(html_code, unsafe_allow_html=True)
-
+st.title(":orange[InterrogaPPC-Inator]")
 
 with st.form("my_form"):
     text = st.text_area("Digite sua pergunta:", "Como funcionam as horas de extensão?")
