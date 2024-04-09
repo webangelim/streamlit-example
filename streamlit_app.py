@@ -10,11 +10,21 @@ from langchain_openai import ChatOpenAI
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.schema.output_parser import StrOutputParser
 import os
+import base64
+
 st.set_page_config(page_title = "InterrogaPPC-Inator", page_icon="./platypus.ico")
 
 openai_api_key = os.getenv("OPENAI_API_KEY", st.secrets["ai"])
 
 @st.cache(allow_output_mutation=True)
+def load_platypus_image():
+    with open("platypus.png", "rb") as f:
+        image = f.read()
+    encoded_image = base64.b64encode(image).decode()
+    return encoded_image
+    
+platypus_image = load_platypus_image()
+
 def setup_rag_chain():
     loader = TextLoader("ppc.txt", autodetect_encoding=True)
     documents = loader.load()
@@ -56,7 +66,17 @@ def setup_rag_chain():
 def generate_response(input_text, rag_chain):
     return rag_chain.invoke(input_text)
 
-st.title(":orange[InterrogaPPC-Inator]")
+# st.title(":orange[InterrogaPPC-Inator]")
+# Dividir a tela em duas colunas
+col1, col2 = st.beta_columns([1, 1])
+
+# Adicionar o título na primeira coluna
+with col1:
+    st.title(":orange[InterrogaPPC-Inator]")
+
+# Adicionar a imagem do ornitorrinco na segunda coluna
+with col2:
+    st.image(platypus_image, caption="Platypus", use_column_width=True)
 
 with st.form("my_form"):
     text = st.text_area("Digite sua pergunta:", "Como funcionam as horas de extensão?")
