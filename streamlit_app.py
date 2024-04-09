@@ -1,5 +1,7 @@
 import os
-openai_api_key = os.getenv("OPENAI_API_KEY", "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")
+# openai_api_key = os.getenv("OPENAI_API_KEY", "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")
+
+openai_api_key = st.sidebar.text_input('OpenAI API Key', type='password')
 
 # ------ Imports da LLM ------ #
 from langchain.document_loaders import TextLoader
