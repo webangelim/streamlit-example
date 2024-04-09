@@ -12,9 +12,26 @@ from langchain_openai import ChatOpenAI
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.schema.output_parser import StrOutputParser
 from langchain.prompts import ChatPromptTemplate
+# ----- Imports do Streamlit ----- #
+import streamlit as st
+from langchain_openai import ChatOpenAI
+
+# ----- Interface ----- #
+openai_api_key = st.sidebar.text_input('OpenAI API Key', type='password')
+
+st.title(':rainbow[InterrogaPPC-Inator]')
+
+def generate_response(input_text):
+    llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0, openai_api_key=openai_api_key)
+    st.info(rag_chain.invoke(input_text))
+
+with st.form('my_form'):
+    text = st.text_area('Digite sua pergunta:', 'Como funcionam as horas de extensão?')
+    submitted = st.form_submit_button('Enviar')
+    if submitted and openai_api_key.startswith('sk-'):
+        generate_response(text)
 
 # ----- Configuração da LLM ----- #
-
 loader = TextLoader("ppc.txt", autodetect_encoding = True)
 documents = loader.load()
 
@@ -48,42 +65,9 @@ Resposta:
 """
 prompt = ChatPromptTemplate.from_template(template)
 
-llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0, openai_api_key=openai_api_key)
-
 rag_chain = (
     {"context": retriever,  "question": RunnablePassthrough()}
     | prompt
     | llm
     | StrOutputParser()
 )
-
-template = """Você é um assistente que irá responder perguntas.
-Use as seguintes peças de texto para responder a pergunta.
-Se não souber a resposta, apenas responda que não sabe a resposta.
-Explique de forma concisa porém fornecendo um número considerável de detalhes.
-Responda como se fosse um professor explicando para um aluno.
-Pergunta: {question}
-Contexto: {context}
-Resposta:
-"""
-prompt = ChatPromptTemplate.from_template(template)
-
-# ----- Import do Streamlit ----- #
-
-import streamlit as st
-from langchain_openai import ChatOpenAI
-
-openai_api_key = st.sidebar.text_input('OpenAI API Key', type='password')
-
-st.title(':rainbow[InterrogaPPC-Inator]')
-
-def generate_response(input_text):
-    llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0, openai_api_key=openai_api_key)
-    st.info(rag_chain.invoke(input_text))
-
-with st.form('my_form'):
-    text = st.text_area('Digite sua pergunta:', 'Como funcionam as horas de extensão?')
-    submitted = st.form_submit_button('Enviar')
-    if submitted and openai_api_key.startswith('sk-'):
-        generate_response(text)
-
