@@ -60,7 +60,7 @@ def generate_response(input_text, rag_chain):
 html_code = f"""
     <div style="display: flex; align-items: center;">
         <h1 style="flex: 1;">:rainbow: InterrogaPPC-Inator</h1>
-        <img src="platypus.ico" width="100" height="100" style="flex-shrink: 0; margin-left: 20px;">
+        <img src="./platypus.ico" width="100" height="100" style="flex-shrink: 0; margin-left: 20px;">
     </div>
 """
 
