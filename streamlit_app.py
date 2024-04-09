@@ -1,4 +1,3 @@
-%pip install langchain openai weaviate-client requests langchain-openai PyPDF2
 import os
 openai_api_key = os.getenv("OPENAI_API_KEY", "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")
 
