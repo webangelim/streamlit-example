@@ -10,6 +10,7 @@ from langchain_openai import ChatOpenAI
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.schema.output_parser import StrOutputParser
 import os
+st.set_page_config(page_title = "InterrogaPPC-Inator", page_icon="./platypus.ico", layout = "wide")
 
 openai_api_key = os.getenv("OPENAI_API_KEY", st.secrets["ai"])
 
