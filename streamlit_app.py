@@ -68,7 +68,7 @@ def generate_response(input_text, rag_chain):
 
 # st.title(":orange[InterrogaPPC-Inator]")
 # Dividir a tela em duas colunas
-col1, col2 = st.beta_columns([1, 1])
+col1, col2 = st.columns([1, 1])
 
 # Adicionar o título na primeira coluna
 with col1:
