@@ -44,12 +44,10 @@ client = weaviate.Client(
   embedded_options = EmbeddedOptions()
 )
 
-open_api_key = st.secrets.open_api_key
-
 vectorstore = Weaviate.from_documents(
     client = client,
     documents = chunks,
-    embedding = OpenAIEmbeddings(model="text-embedding-3-small", openai_api_key=open_api_key),  #text-embedding-3-small usado para criar os embeddings
+    embedding = OpenAIEmbeddings(model="text-embedding-3-small", openai_api_key=openai_api_key),  #text-embedding-3-small usado para criar os embeddings
     by_text = False
 )
 
