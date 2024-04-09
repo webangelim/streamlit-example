@@ -57,18 +57,7 @@ def setup_rag_chain():
 def generate_response(input_text, rag_chain):
     return rag_chain.invoke(input_text)
 
-# st.title(":orange[InterrogaPPC-Inator]")
-
-# Dividir a tela em duas colunas
-col1, col2 = st.columns([3, 1])
-
-# Adicionar o título na primeira coluna
-with col1:
-    st.title(":orange[InterrogaPPC-Inator]")
-
-# Adicionar a imagem do ornitorrinco na segunda coluna
-with col2:
-    st.image("platypus.png", width = 50)
+st.title(":rainbow[InterrogaPPC-Inator]")
 
 with st.form("my_form"):
     text = st.text_area("Digite sua pergunta:", "Como funcionam as horas de extensão?")
