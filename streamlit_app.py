@@ -11,6 +11,9 @@ from weaviate.embedded import EmbeddedOptions
 from langchain_openai import ChatOpenAI
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.schema.output_parser import StrOutputParser
+from langchain.prompts import ChatPromptTemplate
+
+# ----- Configuração da LLM ----- #
 
 loader = TextLoader("ppc.txt", autodetect_encoding = True)
 documents = loader.load()
@@ -54,9 +57,19 @@ rag_chain = (
     | StrOutputParser()
 )
 
-# -----
+template = """Você é um assistente que irá responder perguntas.
+Use as seguintes peças de texto para responder a pergunta.
+Se não souber a resposta, apenas responda que não sabe a resposta.
+Explique de forma concisa porém fornecendo um número considerável de detalhes.
+Responda como se fosse um professor explicando para um aluno.
+Pergunta: {question}
+Contexto: {context}
+Resposta:
+"""
+prompt = ChatPromptTemplate.from_template(template)
 
 # ----- Import do Streamlit ----- #
+
 import streamlit as st
 from langchain_openai import ChatOpenAI
 
@@ -74,15 +87,3 @@ with st.form('my_form'):
     if submitted and openai_api_key.startswith('sk-'):
         generate_response(text)
 
-from langchain.prompts import ChatPromptTemplate
-
-template = """Você é um assistente que irá responder perguntas.
-Use as seguintes peças de texto para responder a pergunta.
-Se não souber a resposta, apenas responda que não sabe a resposta.
-Explique de forma concisa porém fornecendo um número considerável de detalhes.
-Responda como se fosse um professor explicando para um aluno.
-Pergunta: {question}
-Contexto: {context}
-Resposta:
-"""
-prompt = ChatPromptTemplate.from_template(template)
