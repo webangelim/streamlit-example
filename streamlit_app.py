@@ -17,7 +17,8 @@ import streamlit as st
 from langchain_openai import ChatOpenAI
 
 # ----- Interface ----- #
-openai_api_key = st.sidebar.text_input('OpenAI API Key', type='password')
+# openai_api_key = st.sidebar.text_input('OpenAI API Key', type='password')
+openai_api_key = st.secrets.openai_api_key
 
 st.title(':rainbow[InterrogaPPC-Inator]')
 
