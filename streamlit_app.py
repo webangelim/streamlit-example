@@ -1,7 +1,5 @@
-import os
+# import os
 # openai_api_key = os.getenv("OPENAI_API_KEY", "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")
-
-openai_api_key = st.sidebar.text_input('OpenAI API Key', type='password')
 
 # ------ Imports da LLM ------ #
 from langchain.document_loaders import TextLoader
@@ -34,8 +32,6 @@ vectorstore = Weaviate.from_documents(
 
 retriever = vectorstore.as_retriever()
 
-from langchain.prompts import ChatPromptTemplate
-
 template = """Você é um assistente que irá responder perguntas.
 Use as seguintes peças de texto para responder a pergunta.
 Se não souber a resposta, apenas responda que não sabe a resposta.
@@ -62,6 +58,7 @@ rag_chain = (
 import streamlit as st
 from langchain_openai import ChatOpenAI
 
+openai_api_key = st.sidebar.text_input('OpenAI API Key', type='password')
 
 st.title(':rainbow[InterrogaPPC-Inator]')
 
