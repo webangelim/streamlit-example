@@ -60,7 +60,7 @@ def generate_response(input_text, rag_chain):
 st.title(":rainbow[InterrogaPPC-Inator]")
 
 with st.form("my_form"):
-    text = st.text_area("Digite sua pergunta:", "Como funcionam as horas de extensão?")
+    text = st.text_area("Digite sua pergunta:", "Quais as matérias recomendadas para os regulares de 2022 pegarem de acordo com o PCC?")
     submitted = st.form_submit_button("Enviar")
     if submitted:
         rag_chain = setup_rag_chain()
