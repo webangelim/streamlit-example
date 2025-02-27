@@ -15,7 +15,6 @@ st.set_page_config(page_title = "InterrogaPPC-Inator", page_icon="./platypus.ico
 
 openai_api_key = os.getenv("OPENAI_API_KEY", st.secrets["ai"])
 
-@st.cache(allow_output_mutation=True)
 def setup_rag_chain():
     loader = TextLoader("ppc.txt", autodetect_encoding=True)
     documents = loader.load()
