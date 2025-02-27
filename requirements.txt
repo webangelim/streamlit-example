@@ -6,3 +6,4 @@ PyPDF2
 requests
 weaviate-client
 langchain-openai
+faiss-gpu
