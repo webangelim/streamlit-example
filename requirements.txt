@@ -1,6 +1,7 @@
 streamlit
 openai
 langchain
+langchain-community
 PyPDF2
 requests
 weaviate-client
